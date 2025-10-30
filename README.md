@@ -1,76 +1,70 @@
-# doc-tools-python
+# Kill.py — outil léger d'automatisation de documentation Python
 
-![Logo](assets/logo.svg)
+![Logo Python](assets/python-original.svg)
 
-Un outil léger pour générer de la documentation HTML pour des modules Python, avec exemples, instructions d'installation et options pour étendre la doc avec Sphinx ou MkDocs.
+Kill.py est un petit outil CLI pour générer automatiquement de la documentation HTML pour des modules ou paquets Python en s'appuyant sur pydoc (bibliothèque standard). Il vise la simplicité et la rapidité pour documenter du code local ou importable.
 
-## Fonctionnalités
-- Génération rapide de documentation HTML pour un module Python via pydoc (librairie standard).
-- Exemple CLI prêt à l'emploi (`example.py`) pour produire des fichiers HTML.
-- Conseils d'intégration avec Sphinx ou MkDocs pour une documentation plus riche.
-- Logo SVG inclus.
+Fonctionnalités principales
+- Génération rapide de documentation HTML via pydoc.
+- Support des chemins vers fichiers/modules et des modules importables.
+- Option pour ouvrir automatiquement la doc dans le navigateur.
+- Fichier SVG du logo Python inclus dans assets/python-original.svg.
 
-## Installation
-Clonez le dépôt puis (optionnel) créez un environnement virtuel :
+Installation
+1. Clonez le dépôt et placez-vous dedans :
 ```sh
-git clone https://github.com/your-org/your-repo.git
-cd your-repo
+git clone https://github.com/votre-org/votre-repo.git
+cd votre-repo
+```
+2. (Optionnel) créez et activez un environnement virtuel :
+```sh
 python -m venv .venv
-source .venv/bin/activate  # macOS / Linux
-.venv\Scripts\activate     # Windows
+source .venv/bin/activate   # macOS / Linux
+.venv\Scripts\activate      # Windows
+```
+3. (Optionnel) installez les dépendances listées (pour workflows avancés) :
+```sh
 pip install -r requirements.txt
 ```
 
-Remarque : le script principal utilise la librairie standard (`pydoc`) — aucune dépendance obligatoire. Les dépendances listées dans `requirements.txt` sont recommandées pour des workflows avancés (Sphinx, MkDocs, pdoc).
-
-## Utilisation rapide
-Générer la documentation HTML d'un module (exemple `example_module`) :
-
+Utilisation rapide
+Générer la documentation HTML pour un module importable :
 ```sh
-python example.py generate example_module docs/example_module.html
+python kill.py generate mon_module docs/mon_module.html
 ```
 
-Exemples :
-- Générer la doc d'un fichier local `my_package` :
-  python example.py generate path/to/my_package docs/my_package.html
-- Ouvrir la page générée dans le navigateur (option --open) :
-  python example.py generate my_module docs/my_module.html --open
+Générer la documentation à partir d'un fichier ou d'un package local :
+```sh
+python kill.py generate path/to/mymodule.py docs/mymodule.html
+python kill.py generate path/to/mypackage docs/mypackage.html
+```
 
-## Exemple d'utilisation depuis Python
-Voici comment appeler la fonction de génération depuis un autre script :
+Ouvrir automatiquement le fichier généré :
+```sh
+python kill.py generate my_module docs/my_module.html --open
+```
 
+Utilisation depuis Python (API)
 ```python
-from example import generate_html
+from kill import generate_html
 
 generate_html("my_package", "docs/my_package.html")
 ```
 
-## Documentation avancée (Sphinx / MkDocs)
-Pour de la documentation navigable et multi-pages, utilisez Sphinx ou MkDocs.
-- Sphinx :
-  - `pip install sphinx`
-  - `sphinx-quickstart` puis configurez `conf.py` et utilisez `sphinx-apidoc` pour générer la doc API.
-- MkDocs :
-  - `pip install mkdocs mkdocstrings`
-  - Configurez `mkdocs.yml` et ajoutez `mkdocstrings` pour l'API.
+Structure recommandée du dépôt
+- assets/
+  - python-original.svg  — logo Python (fournie)
+- kill.py                — script CLI / API principal
+- docs/usage.md          — guide d'usage avancé (Sphinx, MkDocs)
+- requirements.txt       — dépendances recommandées (optionnel)
+- LICENSE                — licence (ex. MIT)
 
-Voir `docs/usage.md` pour des commandes et exemples détaillés.
+Conseils pour documentation avancée
+- Pour une documentation multi-pages et plus riche, utilisez Sphinx ou MkDocs (voir docs/usage.md).
+- Vous pouvez intégrer Kill.py dans un workflow CI pour générer la doc automatiquement et la publier sur GitHub Pages.
 
-## Structure recommandée du dépôt
-- assets/logo.svg — logo utilisé dans le README et la doc.
-- example.py — script CLI / API pour générer la doc.
-- docs/ — documentation utilisateur supplémentaire.
-- requirements.txt — dépendances recommandées.
-- LICENSE — licence MIT (exemple).
+Licence
+Par défaut, ajoutez la licence de votre choix (ex. MIT) dans le fichier LICENSE.
 
-## Contribution
-Contributions bienvenues : issues, PRs, suggestions d'amélioration (support Markdown, templates HTML, intégration CI pour publier docs).
-
-- Ouvrez une issue pour discuter une nouvelle fonctionnalité.
-- Proposez une PR pour les corrections ou les ajouts.
-
-## Licence
-MIT — voir `LICENSE`.
-
-## Contact
-Auteur : Fixomi (ou remplacez par votre nom)
+Auteur
+Fixomi (ou remplacez par votre nom)
